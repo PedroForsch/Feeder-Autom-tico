@@ -1,9 +1,144 @@
-Nosso projeto consiste no desenvolvimento de um alimentador automático inteligente para pets, utilizando um ESP32, um servo motor, um sensor ultrassônico e uma estrutura produzida por impressão 3D. O principal objetivo é automatizar a alimentação dos animais, oferecendo praticidade ao tutor e garantindo que a ração seja disponibilizada nos horários corretos, mesmo quando não houver ninguém em casa.
-A ideia surgiu a partir da observação de um problema comum enfrentado por muitos donos de animais: a necessidade de estar presente para realizar a alimentação diariamente. Buscando uma solução acessível e eficiente, decidimos desenvolver um sistema capaz de controlar a liberação da ração de forma automática e também permitir acionamento remoto através de uma interface web.
-O primeiro passo foi realizar pesquisas sobre projetos semelhantes e estudar o funcionamento dos componentes necessários. Após isso, definimos os requisitos do sistema, elaboramos a estrutura mecânica e selecionamos os principais componentes eletrônicos. A estrutura física foi projetada para ser impressa em 3D, permitindo uma montagem simples, baixo custo de produção e facilidade de adaptação para diferentes tamanhos de reservatórios.
-O coração do projeto é o ESP32, responsável por controlar todas as funções do alimentador. Ele se conecta à rede Wi-Fi local, sincroniza o horário através de servidores NTP e executa a lógica de alimentação programada. O servo motor é responsável por abrir e fechar uma comporta localizada na saída do reservatório, liberando a quantidade de ração desejada durante um período previamente configurado.
-Além da alimentação automática em horários específicos, implementamos uma interface web hospedada diretamente no ESP32. Dessa forma, qualquer dispositivo conectado à mesma rede pode acessar o sistema através do navegador. Por meio dessa interface, é possível liberar ração manualmente, visualizar informações do sistema e ajustar parâmetros importantes, como o tempo de abertura da comporta e o ângulo de movimentação do servo motor.
-Durante o desenvolvimento enfrentamos diversos desafios, principalmente relacionados à calibração do servo motor e à integração dos diferentes componentes. Foram realizados vários testes para determinar o ângulo ideal de abertura da comporta, evitando desperdícios ou travamentos da ração. Também trabalhamos na otimização do código para garantir estabilidade na comunicação via Wi-Fi e uma experiência de uso mais intuitiva.
-Como etapa de aprimoramento, adicionamos um sensor ultrassônico ao reservatório de ração. Diferentemente da função tradicional de medição de distância, ele foi utilizado para monitorar o nível de ração dentro da garrafa de armazenamento. Após diversos testes e calibrações, foi possível relacionar a distância medida pelo sensor à quantidade aproximada de ração restante. Com isso, o sistema passou a calcular uma estimativa percentual do nível de ração e exibi-la diretamente na interface web.
-Essa funcionalidade torna o projeto mais inteligente, pois permite ao usuário acompanhar em tempo real o estado do reservatório e receber alertas quando a quantidade de ração estiver baixa. Dessa forma, além de automatizar a alimentação, o sistema também auxilia no gerenciamento do estoque de ração, reduzindo a chance de o animal ficar sem alimento por falta de reposição.
-Ao final do desenvolvimento, obtivemos um protótipo funcional que integra conceitos de eletrônica, programação, automação, internet das coisas (IoT) e fabricação digital. O projeto demonstra como tecnologias acessíveis podem ser aplicadas para solucionar problemas do cotidiano, oferecendo uma alternativa prática, moderna e de baixo custo para o cuidado com animais de estimação.
+# Alimentador Automático para Pets
+
+Projeto acadêmico desenvolvido em equipe com o objetivo de automatizar
+a alimentação de animais de estimação utilizando um ESP32.
+
+O sistema combina automação, controle de hardware e uma interface web
+para permitir a liberação programada ou manual de ração, além do
+monitoramento do nível de ração no reservatório.
+
+## Sobre o projeto
+
+A proposta surgiu a partir da necessidade de alimentar animais mesmo
+quando o tutor não está em casa.
+
+Para isso, desenvolvemos um protótipo utilizando um ESP32 como
+controlador principal, um servomotor para acionar a comporta de
+liberação da ração, um sensor ultrassônico para estimar o nível do
+reservatório e uma estrutura produzida por impressão 3D.
+
+O ESP32 se conecta à rede Wi-Fi e hospeda uma interface web que pode
+ser acessada por dispositivos conectados à mesma rede.
+
+## Funcionalidades
+
+- Alimentação automática em horários programados
+- Liberação manual de ração pela interface web
+- Controle da comporta por servomotor
+- Sincronização de horário utilizando NTP
+- Interface web hospedada diretamente no ESP32
+- Visualização do estado do alimentador
+- Configuração do ângulo de abertura do servo
+- Configuração do tempo de abertura da comporta
+- Monitoramento do nível de ração
+- Estimativa percentual de ração disponível
+- Indicação de nível baixo de ração
+- Controle e monitoramento pelo Monitor Serial
+
+## Como funciona
+
+### Alimentação automática
+
+O sistema possui horários de alimentação previamente configurados.
+Quando o horário programado é atingido, o ESP32 aciona o servomotor,
+que abre a comporta do reservatório durante o período configurado.
+
+No código atualmente publicado, os horários definidos são:
+
+- 08:00
+- 14:00
+- 20:00
+
+O horário é obtido por meio de um cliente NTP configurado para o
+fuso horário UTC-3. 
+
+Para o ESP32 se conectar na internet deve-se mudar os campos 
+
+const char* ssid = "SEU_WIFI";
+const char* password = "SUA_SENHA";
+
+### Controle manual
+
+A interface web permite liberar ração manualmente, sem depender de um
+horário programado.
+
+Também é possível consultar informações do sistema e acompanhar o
+estado atual do alimentador.
+
+### Monitoramento do nível de ração
+
+Um sensor ultrassônico foi instalado na parte superior do reservatório
+para medir a distância até a ração.
+
+A partir das medições, o sistema calcula uma estimativa percentual do
+nível de ração disponível e identifica quando o nível está baixo.
+
+### Interface web
+
+O servidor web é executado diretamente no ESP32. A interface permite
+interagir com o alimentador utilizando um navegador conectado à mesma
+rede Wi-Fi.
+
+Entre as informações disponibilizadas estão:
+
+- horário atual;
+- estado da alimentação;
+- posição do servo;
+- tempo de abertura;
+- percentual estimado de ração;
+- distância medida pelo sensor;
+- indicação de nível baixo.
+
+## Hardware
+
+- ESP32
+- Servomotor
+- Sensor ultrassônico
+- Estrutura para o reservatório
+- Comporta para liberação da ração
+- Componentes eletrônicos auxiliares
+- Estrutura produzida por impressão 3D
+
+## Tecnologias e bibliotecas
+
+- C/C++
+- ESP32
+- Wi-Fi
+- HTML/CSS/JavaScript
+- NTP
+- HTTP
+- Arduino
+- `WiFi.h`
+- `WiFiUdp.h`
+- `NTPClient.h`
+- `ESP32Servo.h`
+- `WebServer.h`
+
+## Desenvolvimento
+
+Durante o desenvolvimento, foram realizados testes e calibrações
+principalmente relacionados ao acionamento do servomotor e à medição
+do nível de ração.
+
+A abertura da comporta precisou ser ajustada para encontrar uma posição
+adequada de funcionamento, evitando problemas na liberação da ração.
+
+Também foram realizados testes com o sensor ultrassônico para
+relacionar a distância medida à quantidade aproximada de ração
+disponível no reservatório.
+
+## Objetivo acadêmico
+
+Este projeto foi desenvolvido como parte de uma atividade acadêmica,
+com o objetivo de aplicar conhecimentos de programação, eletrônica,
+automação e desenvolvimento de sistemas embarcados em uma aplicação
+prática.
+
+O resultado foi um protótipo funcional de alimentador automático,
+integrando hardware, software, comunicação Wi-Fi e uma interface web.
+
+## Arquivo principal
+
+O código do projeto está disponível em:
+
+`feeder.ino`
