@@ -62,7 +62,7 @@ unsigned long ultimaLeituraSensor = 0;
 // ======= CONTROLE DE PRINT =======
 unsigned long ultimoPrintHorario = 0;
 
-// ======= SITE BONITINHO NOVO =======
+// ======= SITE =======
 const char INDEX_HTML[] PROGMEM = R"rawliteral(
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -1247,8 +1247,7 @@ void atualizarAlimentacao() {
   }
 }
 
-// Mantive esta funcao caso voce queira usar em algum teste antigo.
-// Agora ela usa o sistema novo, sem delay.
+
 void liberarRacao() {
   iniciarLiberacaoRacao();
 }
