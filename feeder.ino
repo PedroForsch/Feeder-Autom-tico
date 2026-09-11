@@ -5,8 +5,8 @@
 #include <WebServer.h>
 
 // ======= CONFIGURAÇÕES DO WIFI =======
-const char* ssid     = "AMF";
-const char* password = "amf@2025";
+const char* ssid     = "SEU_WIFI";
+const char* password = "SUA_SENHA";
 
 // ======= HORÁRIOS DE ALIMENTAÇÃO =======
 // Formato: {hora, minuto}
