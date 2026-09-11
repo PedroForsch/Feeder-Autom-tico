@@ -53,10 +53,10 @@ O horário é obtido por meio de um cliente NTP configurado para o
 fuso horário UTC-3. 
 
 Para o ESP32 se conectar na internet deve-se mudar os campos 
-
+```
 const char* ssid = "SEU_WIFI";
 const char* password = "SUA_SENHA";
-
+```
 ### Controle manual
 
 A interface web permite liberar ração manualmente, sem depender de um
